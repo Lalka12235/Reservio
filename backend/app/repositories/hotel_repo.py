@@ -1,18 +1,20 @@
-from sqlalchemy import select,insert,delete,update
+import logging
+from sqlalchemy import select,delete, update
 from app.config.session import Session
 from app.models.temp_models import HotelModel
-
 from app.schemas.hotel_schema import HotelSchema
 
+logger = logging.getLogger(__name__)
 
-class HotelReposotory:
+class HotelRepository:
 
     @staticmethod
-    def get_hotel_by_title(title):
+    def get_hotel_by_title(title: str):
         with Session() as session:
             stmt = select(HotelModel).where(HotelModel.title == title)
-            return session.execute(stmt).scalar_one_or_none()
-        
+            result = session.execute(stmt).scalar_one_or_none()
+            logger.info(f"Получен отель с названием: {title}")
+            return result
 
     @staticmethod
     def create_info_about_hotel(hotel: HotelSchema):
@@ -21,25 +23,29 @@ class HotelReposotory:
                 title=hotel.title,
                 description=hotel.description,
             )
-
             session.add(new_hotel)
             session.commit()
+            logger.info(f"Создан отель: {hotel.title}")
+            return new_hotel.id
 
-            return
-        
-    
     @staticmethod
-    def update_info_about_hotel(old_title,hotel: HotelSchema):
+    def update_info_about_hotel(old_title: str, hotel: HotelSchema):
         with Session() as session:
-            stmt = update(HotelModel).where(HotelModel.title == old_title).values(title=hotel.title,description=hotel.description)
-            session.execute(stmt)
+            stmt = (
+                update(HotelModel)
+                .where(HotelModel.title == old_title)
+                .values(title=hotel.title, description=hotel.description)
+            )
+            result = session.execute(stmt)
             session.commit()
-            return
-        
+            logger.info(f"Обновлён отель: {old_title} -> {hotel.title}")
+            return result
+
     @staticmethod
-    def delete_hotel(title):
+    def delete_hotel(title: str):
         with Session() as session:
             stmt = delete(HotelModel).where(HotelModel.title == title)
-            session.execute(stmt)
+            result = session.execute(stmt)
             session.commit()
-            return
+            logger.info(f"Удалён отель с названием: {title}")
+            return result
