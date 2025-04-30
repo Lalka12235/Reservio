@@ -1,21 +1,20 @@
-from sqlalchemy import select,insert,update,delete
+from sqlalchemy import select,delete
 from app.schemas.booking_schema import BookingSchema
 from app.models.temp_models import BookingModel
 from app.config.session import Session
-from datetime import datetime
 
 
 class BookingRepository:
 
     @staticmethod
-    def get_booking_by_userid(user_id: int,):
+    def get_booking_by_user(user_id: int,):
         with Session() as session:
             stmt = select(BookingModel).where(BookingModel.user_id == user_id)
             result = session.execute(stmt).scalar_one_or_none()
             return result
         
     @staticmethod
-    def get_all_booking_by_userid(user_id: int):
+    def get_all_booking_by_user(user_id: int):
         with Session() as session:
             stmt = select(BookingModel).where(BookingModel.user_id == user_id)
             result = session.execute(stmt).fetchall()
@@ -23,11 +22,11 @@ class BookingRepository:
         
     
     @staticmethod
-    def create_booking(start_date: datetime,end_date: datetime, hotel_id: int, room_id: int,user_id):
+    def create_booking(booking: BookingSchema, hotel_id: int, room_id: int,user_id):
         with Session() as session:
             new_booking = BookingModel(
-                start_date=start_date,
-                end_date=end_date,
+                start_date=booking.start_date,
+                end_date=booking.end_date,
                 hotel_id=hotel_id,
                 room_id=room_id,
                 user_id=user_id
