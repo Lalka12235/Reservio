@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 from datetime import datetime
-from sqlalchemy import and_
 
 from app.repositories.booking_repo import BookingRepository
 from app.services.user_service import UserServices
@@ -12,25 +11,25 @@ from app.schemas.booking_schema import BookingSchema
 class BookingService:
 
     @staticmethod
-    def _check_booking_dates(start_date: datetime, end_date: datetime):
-        if start_date >= end_date:
+    def _check_booking_dates(booking: BookingSchema):
+        if booking.start_date >= booking.end_date:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Дата окончания должна быть позже даты начала"
             )
         
-        if start_date < datetime.now():
+        if booking.start_date < datetime.now():
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Нельзя бронировать на прошедшую дату"
             )
 
     @staticmethod
-    def _check_room_availability(room_id: int, start_date: datetime, end_date: datetime):
+    def _check_room_availability(room_id: int, booking: BookingSchema):
         conflicting_bookings = BookingRepository.get_conflicting_bookings(
             room_id=room_id,
-            start_date=start_date,
-            end_date=end_date
+            start_date=booking.start_date,
+            end_date=booking.end_date
         )
         
         if conflicting_bookings:
@@ -75,16 +74,13 @@ class BookingService:
 
     @staticmethod
     def create_booking(booking: BookingSchema, title_hotel: str, title_room: str, username: str):
-        # Получаем необходимые объекты
         user = UserServices.get_user(username)
         hotel = HotelService.get_hotel_by_title(title_hotel)
         room = RoomService.get_room_by_title(title_hotel, title_room)
 
-        # Проверки перед созданием бронирования
         BookingService._check_booking_dates(booking.start_date, booking.end_date)
         BookingService._check_room_availability(room.id, booking.start_date, booking.end_date)
 
-        # Создаем бронирование
         try:
             result = BookingRepository.create_booking(
                 booking=booking,
@@ -110,12 +106,10 @@ class BookingService:
             )
 
     @staticmethod
-    def delete_booking(username: str, booking_id: int):
+    def delete_booking(username: str):
         user = UserServices.get_user(username)
         
-        # Проверяем, что бронирование принадлежит пользователю
-        booking = BookingRepository.get_booking_by_id_and_user(
-            booking_id=booking_id,
+        booking = BookingRepository.get_booking_by_user(
             user_id=user.id
         )
         
@@ -125,16 +119,14 @@ class BookingService:
                 detail='Бронирование не найдено или не принадлежит пользователю'
             )
         
-        # Проверяем, что не пытаемся отменить прошедшее бронирование
         if booking.start_date < datetime.now():
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail='Нельзя отменить прошедшее бронирование'
             )
         
-        # Удаляем бронирование
         try:
-            BookingRepository.delete_booking(booking_id)
+            BookingRepository.delete_booking(booking.id)
             return {'message': 'Бронирование успешно отменено'}
         except Exception as e:
             raise HTTPException(
