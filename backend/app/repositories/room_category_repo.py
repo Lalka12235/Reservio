@@ -20,10 +20,20 @@ class RoomCategoryRepository:
         
     
     @staticmethod
+    def get_room_category_by_title(hotel_id,title_category):
+        with Session() as session:
+            stmt = select(RoomCategoryModel).where(
+                RoomCategoryModel.hotel_id == hotel_id, 
+                RoomCategoryModel.title == title_category,
+                )
+            
+            result = session.execute(stmt)
+            return result
+        
+    
+    @staticmethod
     def create_room_category(hotel_id: int,category: RoomCategorySchema):
         with Session() as session:
-
-
             new_room_category = RoomCategoryModel(
                 title_category=category.title,
                 description=category.description,
@@ -55,6 +65,6 @@ class RoomCategoryRepository:
 
             stmt = delete(RoomCategoryModel).where(RoomCategoryModel.hotel_id == hotel_id, RoomCategoryModel.title == title_category)
             session.execute(stmt)
-            return hotel.id,title_category
+            return hotel_id,title_category
         
     

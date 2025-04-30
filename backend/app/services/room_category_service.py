@@ -20,5 +20,62 @@ class RoomCategoryService:
     
         return result
     
+    @staticmethod
+    def get_room_category_by_title(title_hotel: str,title_category: str):
+        hotel = HotelService.get_hotel_by_title(title_hotel)
+
+        result = RoomCategoryRepository.get_room_category_by_title(hotel.id,title_category)
+
+        if not result: 
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail='Category not found'
+            )
+        
+        return result
+    
 
     @staticmethod
+    def create_room_category(title_hotel: str, category: RoomCategorySchema):
+        hotel = HotelService.get_hotel_by_title(title_hotel)
+
+        result = RoomCategoryRepository.create_room_category(hotel.id,category)
+
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail='Not created'
+            )
+        
+        return result
+    
+
+    @staticmethod
+    def update_room_category(title_hotel: str, category: RoomCategorySchema):
+        hotel = HotelService.get_hotel_by_title(title_hotel)
+
+        result = RoomCategoryRepository.update_room_category(hotel.id,category)
+
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail='Not updated'
+            )
+        
+        return result
+    
+
+    @staticmethod
+    def delete_room_category(title_hotel: str, title_category: str):
+        hotel = HotelService.get_hotel_by_title(title_hotel)
+
+        result = RoomCategoryRepository.delete_room_category(hotel.id,title_category)
+
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail='Not deleted'
+            )
+        
+        return result
+
