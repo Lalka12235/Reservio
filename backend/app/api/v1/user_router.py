@@ -9,16 +9,16 @@ user = APIRouter(
 
 
 
-@user.get('/booking/{username}')
+@user.get('/api/v1/{username}')
 async def get_user(username: str):
     return UserServices.get_user(username)
 
 
-@user.post('/booking/{username}')
+@user.post('/api/v1/register')
 async def register_user(user: UserRegisterSchema):
     return UserServices.register_user(user)
 
 
-@user.delete('/booking/{username}')
+@user.delete('/api/v1/{username}')
 async def delete_user(user: UserLoginSchema):
     return UserServices.delete_user(user)
