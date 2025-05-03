@@ -4,12 +4,12 @@ from app.services.room_category_service import RoomCategoryService
 from app.schemas.room_category_schema import RoomCategorySchema
 
 room_category = APIRouter(
-    prefix="/api/v1/room-category",
-    tags=['Room Category']
+    prefix="/api/v1/hotels/{hotel_title}/room-categories",
+    tags=['Room Categories']
 )
 
 
-@room_category.get('/{title_hotel}')
+@room_category.get('/')
 async def get_all_room_category_by_hotel(title_hotel: str):
     return RoomCategoryService.get_all_room_category_by_hotel(title_hotel)
 
