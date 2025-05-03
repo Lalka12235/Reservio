@@ -18,7 +18,7 @@ class RoomCategoryService:
                 detail='Category not found'
             )
     
-        return result
+        return {'message': 'success','result': [category for category in result]}
     
     @staticmethod
     def get_room_category_by_title(title_hotel: str,title_category: str):
@@ -32,7 +32,7 @@ class RoomCategoryService:
                 detail='Category not found'
             )
         
-        return result
+        return {'message': 'success','result': result}
     
 
     @staticmethod
@@ -47,7 +47,7 @@ class RoomCategoryService:
                 detail='Not created'
             )
         
-        return result
+        return {'message': 'success','result': result}
     
 
     @staticmethod
@@ -62,7 +62,7 @@ class RoomCategoryService:
                 detail='Not updated'
             )
         
-        return result
+        return {'message': 'success','result': result}
     
 
     @staticmethod
@@ -77,5 +77,5 @@ class RoomCategoryService:
                 detail='Not deleted'
             )
         
-        return result
+        return {'message': 'success','result': result}
 
