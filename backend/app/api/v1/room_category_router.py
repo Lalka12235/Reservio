@@ -10,12 +10,12 @@ room_category = APIRouter(
 
 
 @room_category.get('/')
-async def get_all_room_category_by_hotel(title_hotel: str):
+async def get_all_room_category(title_hotel: str):
     return RoomCategoryService.get_all_room_category_by_hotel(title_hotel)
 
 
 @room_category.get('/{title_hotel}')
-async def get_room_category_by_title(title_hotel: str, title_category: str):
+async def get_room_category(title_hotel: str, title_category: str):
     return RoomCategoryService.get_room_category_by_title(title_hotel,title_category)
 
 

@@ -12,7 +12,7 @@ hotel = APIRouter(
 
 
 @hotel.get('/{title}')
-async def get_hotel_by_Title(title: str):
+async def get_hotel(title: str):
     return HotelService.get_hotel_by_title(title)
 
 

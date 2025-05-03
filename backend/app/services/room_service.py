@@ -52,7 +52,7 @@ class RoomService:
         return {'message': 'success','create': result}
     
     @staticmethod
-    def update_room(old_title: str, room: RoomSchema, title_category):
+    def update_room(old_title: str, room: RoomSchema, title_category: str):
         hotel = HotelService.get_hotel_by_title(old_title)
 
         category = RoomCategoryService.get_room_category_by_title(hotel.id,title_category)
