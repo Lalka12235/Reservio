@@ -14,7 +14,7 @@ services:
       - postgre_vol:/var/lib/postgresql/data 
 
   backend:
-    build: /app
+    build: .
     container_name: booking-system
     volumes:
       - ./app:/app
