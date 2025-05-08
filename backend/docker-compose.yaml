@@ -12,9 +12,16 @@ services:
       - netapi
     volumes:
       - postgre_vol:/var/lib/postgresql/data 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isreadey"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    build: .
+    build:
+      dockerfile: Dockerfile
+      context: .
     container_name: booking-system
     volumes:
       - ./app:/app
