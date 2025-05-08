@@ -4,6 +4,10 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 
+@app.get('/ping')
+async def ping():
+    return 'Server is work'
+
 origins = [
     "http://localhost",  
     "http://localhost:8080",  
