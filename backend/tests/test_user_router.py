@@ -15,7 +15,7 @@ class TestUserRouter:
 
 
     @pytest.mark.asyncio
-    async def test_get_user(test_user_data):
+    async def test_get_user(test_create_data):
         async with AsyncClient(transport=ASGITransport(app), base_url='http://test') as ac:
             response = await ac.post('/api/v1/users/register',json=test_user_data)
             data = response.json()

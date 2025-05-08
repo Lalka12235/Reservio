@@ -3,6 +3,7 @@ import pytest
 from app.schemas.user_schema import UserRegisterSchema
 from app.services.user_service import UserServices
 
+
 @pytest.fixture
 def test_user_data():
     return {
