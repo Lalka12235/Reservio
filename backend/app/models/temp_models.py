@@ -13,7 +13,7 @@ class UserModel(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str]
     username: Mapped[str]
-    password_hash: Mapped[str]
+    hashed_password: Mapped[str]
 
     bookings: Mapped[list['BookingModel']] = relationship(back_populates='user')
 

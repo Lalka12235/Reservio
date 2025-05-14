@@ -20,7 +20,7 @@ class UserRepository:
 
             hash_pass = make_hash_pass(user.password)
 
-            stmt = insert(UserModel).values(email=user.email,username=user.username,password_hash=hash_pass)
+            stmt = insert(UserModel).values(email=user.email,username=user.username,hashed_password=hash_pass)
             session.execute(stmt)
             session.commit()
         
@@ -29,6 +29,6 @@ class UserRepository:
          with Session() as session:
             hash_pass = make_hash_pass(user.password)
 
-            stmt = delete(UserModel).where(UserModel.username == user.username,UserModel.password_hash == hash_pass).returning(UserModel.id)
+            stmt = delete(UserModel).where(UserModel.username == user.username,UserModel.hashed_password == hash_pass).returning(UserModel.id)
             session.execute(stmt)
             session.commit()

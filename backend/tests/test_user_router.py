@@ -1,23 +1,35 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
-from backend.app.main import app
-from tests.conftest import test_user_data,created_test_user
-from app.schemas.user_schema import UserRegisterSchema
-from app.services.user_service import UserServices
+from main import app
+from tests.conftest import test_get_username,test_user_data,test_user_data1
+
 
 class TestUserRouter:
     @pytest.mark.asyncio
-    async def test_get_user(test_user_data):
-        async with AsyncClient(transport=ASGITransport(app), base_url='http://test') as ac:
-            response = await ac.get('/api/v1/users/{username}')
+    async def test_get_user_success(self, test_get_username: dict):
+        async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:
+            response = await ac.get(f'/api/v1/users/{test_get_username.get('username')}')
             assert response.status_code == 200
-            assert response.json() == {'message': 'User found', 'detail': test_user_data['username']}
+            data = response.json()
+            assert data['message'] == 'User found'
+            assert 'detail' in data
+            
+    @pytest.mark.asyncio
+    async def test_get_user_not_found(self):
+        async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:
+            response = await ac.get('/api/v1/users/nonexistent_user')
+            assert response.status_code == 404
+            assert response.json() == {'detail': 'User not found'}
 
 
     @pytest.mark.asyncio
-    async def test_get_user(test_create_data):
-        async with AsyncClient(transport=ASGITransport(app), base_url='http://test') as ac:
-            response = await ac.post('/api/v1/users/register',json=test_user_data)
+    async def test_create_user(self,test_user_data1):
+        async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:
+            response = await ac.post('api/v1/users/register',json=test_user_data1)
             data = response.json()
-            await response.status_code == 200
-            assert data['username'] == test_user_data['username']
+            assert data == {'message': 'Account created', 'user_id': data.get('id')}
+
+
+    @pytest.mark.asyncio
+    async def test_create_user(self,test_user_data1):
+        async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:

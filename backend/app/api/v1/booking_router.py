@@ -24,7 +24,7 @@ async def create_booking(booking: BookingSchema,title_hotel: str, title_room: st
     return BookingService.create_booking(booking,title_hotel,title_room,username)
 
 
-@booking.delete('/{username}')
+@booking.delete('/')
 async def delete_booking(username: str):
     return BookingService.delete_booking(username)
 
