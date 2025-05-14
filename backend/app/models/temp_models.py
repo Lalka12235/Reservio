@@ -24,7 +24,7 @@ class HotelModel(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str]
     description: Mapped[str]
-    rating: Mapped[float]
+    #rating: Mapped[float]
 
     room_categories: Mapped[list['RoomCategoryModel']] = relationship(back_populates='hotel')
     rooms: Mapped[list['RoomModel']] = relationship(back_populates='hotel')

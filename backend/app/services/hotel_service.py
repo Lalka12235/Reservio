@@ -11,8 +11,8 @@ class HotelService:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail='Hotel not found'
-            )
-        return hotel
+            ) 
+        return {'message': 'success'}
 
     @staticmethod
     def create_info_about_hotel(hotel_data: HotelSchema):
@@ -28,7 +28,7 @@ class HotelService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail='Not created'
             )
-        return {'message': 'Hotel created successfully','title': hotel_data.title,'dedscription': hotel_data.description}
+        return {'message': 'Hotel created successfully','title': hotel_data.title,'description': hotel_data.description}
 
     @staticmethod
     def update_info_about_hotel(old_title: str, hotel_data: HotelSchema):
