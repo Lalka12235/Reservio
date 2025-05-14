@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
 from main import app
-from tests.conftest_hotel import test_hotel_title,test_create_hotel_data
+from tests.hotel_test.conftest_hotel import test_hotel_title,test_create_hotel_data
 
 
 

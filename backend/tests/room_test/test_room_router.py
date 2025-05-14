@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
 from main import app
-from tests.conftest_room import test_get_room_title
+from tests.room_test.conftest_room import test_get_room_title
 
 
 class TestRoomRouter:
