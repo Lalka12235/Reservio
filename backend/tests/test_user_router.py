@@ -1,14 +1,15 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
 from main import app
-from tests.conftest import test_get_username,test_user_data,test_user_data1
+from tests.conftest import test_get_username,test_user_data,test_user_data1,test_user_data_delete
+
 
 
 class TestUserRouter:
     @pytest.mark.asyncio
-    async def test_get_user_success(self, test_get_username: dict):
+    async def test_get_user_success(self, test_get_username: str):
         async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:
-            response = await ac.get(f'/api/v1/users/{test_get_username.get('username')}')
+            response = await ac.get(f'/api/v1/users/{test_get_username}')
             assert response.status_code == 200
             data = response.json()
             assert data['message'] == 'User found'
@@ -30,6 +31,11 @@ class TestUserRouter:
             assert data == {'message': 'Account created', 'user_id': data.get('id')}
 
 
+    #change api or idk
     @pytest.mark.asyncio
-    async def test_create_user(self,test_user_data1):
+    async def test_delete_user(self,test_user_data_delete,test_get_username: str):
         async with AsyncClient(transport=ASGITransport(app=app), base_url='http://test') as ac:
+            response = await ac.delete(f'api/v1/users/{test_get_username}')
+            assert response.status_code == 200
+            data = response.json()
+            print(data)

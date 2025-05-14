@@ -1,8 +1,5 @@
 import pytest
 
-#from app.schemas.user_schema import UserRegisterSchema
-#from app.services.user_service import UserServices
-
 
 @pytest.fixture
 def test_user_data():
@@ -21,15 +18,13 @@ def test_user_data1():
     }
 
 @pytest.fixture
-def test_get_username():
+def test_user_data_delete():
     return {
-        'username': 'egor'
+        'username': 'egor',
+        'password': 'qwerty',
     }
 
+@pytest.fixture
+def test_get_username():
+    return 'egor'
 
-#@pytest.fixture
-#def created_test_user(test_user_data):
-#    user_data = UserRegisterSchema(**test_user_data)
-#    user = UserServices.register_user(user_data)
-#    yield user
-#    UserServices.delete_user(test_user_data)

@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 
+
 from app.services.user_service import UserServices
 from app.schemas.user_schema import UserRegisterSchema, UserLoginSchema
 
@@ -21,5 +22,5 @@ async def register_user(user: UserRegisterSchema):
 
 
 @user.delete('/{username}')
-async def delete_user(user: UserLoginSchema):
+async def delete_user(user: UserLoginSchema, username: str):
     return UserServices.delete_user(user)
