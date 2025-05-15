@@ -7,9 +7,17 @@ from app.api.v1.room_category_router import room_category
 from app.api.v1.room_router import room
 from app.api.v1.user_router import user
 
+from app.logger.log_config import configure_logging
+from app.middleware.logging_middleware import LogMiddleware
+
+configure_logging()
+
+
+
 
 app = FastAPI()
 
+app.add_middleware(LogMiddleware)
 
 @app.get('/ping')
 async def ping():

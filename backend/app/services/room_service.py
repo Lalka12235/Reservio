@@ -11,7 +11,7 @@ class RoomService:
     def get_room_by_title(title_hotel: str,title_room: str):
         hotel = HotelService.get_hotel_by_title(title_hotel)
 
-        room = RoomRepository.get_room_by_title(hotel.id,title_room)
+        room = RoomRepository.get_room_by_title(hotel,title_room)
 
         if not room:
             raise HTTPException(
@@ -19,13 +19,13 @@ class RoomService:
                 detail='Room not found'
             )
         
-        return room
+        return {'message': 'success','detail': room}
     
     @staticmethod
     def get_all_room_by_hotel(title_hotel: str):
         hotel = HotelService.get_hotel_by_title(title_hotel)
 
-        rooms = RoomRepository.get_all_room_by_hotel(hotel.id)
+        rooms = RoomRepository.get_all_room_by_hotel(hotel)
 
         if not rooms:
             raise HTTPException(
@@ -39,9 +39,9 @@ class RoomService:
     def create_room(room: RoomSchema,title_hotel: str, title_category: str):
         hotel = HotelService.get_hotel_by_title(title_hotel)
 
-        category = RoomCategoryService.get_room_category_by_title(hotel.id,title_category)
+        category = RoomCategoryService.get_room_category_by_title(hotel,title_category)
 
-        result = RoomRepository.create_room(room,hotel.id,category.id)
+        result = RoomRepository.create_room(room,hotel,category.id)
 
         if not result:
             raise HTTPException(
@@ -55,9 +55,9 @@ class RoomService:
     def update_room(old_title: str, room: RoomSchema, title_category: str):
         hotel = HotelService.get_hotel_by_title(old_title)
 
-        category = RoomCategoryService.get_room_category_by_title(hotel.id,title_category)
+        category = RoomCategoryService.get_room_category_by_title(hotel,title_category)
 
-        result = RoomRepository.update_room(old_title,room,category.id,hotel.id)
+        result = RoomRepository.update_room(old_title,room,category.id,hotel)
 
         if not result:
             raise HTTPException(
@@ -72,7 +72,7 @@ class RoomService:
     def delete_room(title_room: str, title_hotel: str):
         hotel = HotelService.get_hotel_by_title(title_hotel)
 
-        result = RoomRepository.delete_room(title_room,hotel.id)
+        result = RoomRepository.delete_room(title_room,hotel)
 
         if not result:
             raise HTTPException(

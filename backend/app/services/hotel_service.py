@@ -12,7 +12,7 @@ class HotelService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail='Hotel not found'
             ) 
-        return {'message': 'success'}
+        return hotel.id
 
     @staticmethod
     def create_info_about_hotel(hotel_data: HotelSchema):
