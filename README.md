@@ -1,9 +1,8 @@
 # Simple booking system
 
-## Stack
-Python
-FastAPI
-SQLAlchemy
-SQL
-PostgreSQL
-Docker
+## 🛠 Tech Stack
+
+- **Backend**: Python (FastAPI)
+- **Database**: PostgreSQL
+- **ORM**: SQLAlchemy
+- **Containerization**: Docker
