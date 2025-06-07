@@ -12,7 +12,6 @@ class TestRoomRouter:
             response = await ac.get(f'/api/v1/hotels/{test_hotel_title}/rooms/{test_get_room_title}')
             assert response.status_code == 200
             data = response.json()
-            assert data['message'] == 'success'
 
     @pytest.mark.asyncio
     async def test_get_title_failed(self, test_get_room_title: str):

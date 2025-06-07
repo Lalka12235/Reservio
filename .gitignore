@@ -11,3 +11,6 @@ __pycache__/
 
 # Игнорировать настройки VS Code
 .vscode/
+
+
+backend/app/logger/logs/app.log
