@@ -7,12 +7,6 @@ Support for various types of resources (hotels, restaurants, events)
 
 Availability calendar with customizable time slots
 
-✅ Integration with bots
-
-Telegram bot for booking "in two clicks"
-
-Confirmation/cancellation notifications via messengers
-
 ✅ Tech stack
 
 Backend: FastAPI (asynchronous mode)
