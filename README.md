@@ -1,4 +1,4 @@
-# Simple booking system
+# Reservio
 
 🔹 Key features
 ✅ Flexible booking
