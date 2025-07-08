@@ -1,6 +1,6 @@
 import pytest
 from httpx import AsyncClient, ASGITransport
-from main import app
+from backend.app.main import app
 from tests.user_test.conftest import test_get_username,test_user_data,test_user_data1,test_user_data_delete
 
 
