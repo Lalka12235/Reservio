@@ -1,6 +1,6 @@
 from sqlalchemy import select,delete,insert
 
-from app.models.temp_models import UserModel
+from app.models.user_model import UserModel
 from app.config.session import Session
 from app.utils.hash import make_hash_pass
 from app.schemas.user_schema import UserRegisterSchema, UserLoginSchema

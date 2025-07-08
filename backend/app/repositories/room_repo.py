@@ -1,7 +1,7 @@
 from sqlalchemy import select,update,delete
 from app.config.session import Session
 from app.schemas.room_schema import RoomSchema
-from app.models.temp_models import RoomModel
+from app.models.room_model import RoomModel
 
 
 

@@ -1,6 +1,6 @@
 from sqlalchemy import select,delete,and_,func
 from app.schemas.booking_schema import BookingSchema
-from app.models.temp_models import BookingModel
+from app.models.booking_model import BookingModel
 from app.config.session import Session
 
 

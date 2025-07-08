@@ -3,7 +3,7 @@ from sqlalchemy import select,insert,update,delete
 from app.config.session import Session
 from app.schemas.room_category_schema import RoomCategorySchema
 
-from app.models.temp_models import RoomCategoryModel
+from app.models.room_category_model import RoomCategoryModel
 
 from app.services.hotel_service import HotelService
 

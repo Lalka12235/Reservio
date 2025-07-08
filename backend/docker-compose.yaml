@@ -30,7 +30,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      APP_CONFIG_DB_URL: postgresql+psycopg://user:password@postgres:5432/quick
+      APP_CONFIG_DB_URL: postgresql+psycopg://user:password@postgres:5432/reservio
     networks:
       - netapi
     depends_on:

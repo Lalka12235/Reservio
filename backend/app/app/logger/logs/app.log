@@ -1,0 +1,45 @@
+[2025-07-08 11:15:23] uvicorn.error:318 INFO    - Will watch for changes in these directories: ['D:\\Programming\\Projects\\Reservio\\backend\\app']
+[2025-07-08 11:15:23] uvicorn.error:524 INFO    - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[2025-07-08 11:15:23] uvicorn.error:80 INFO    - Started reloader process [32732] using WatchFiles
+[2025-07-08 11:15:24] uvicorn.error:83 INFO    - Started server process [12056]
+[2025-07-08 11:15:24] uvicorn.error:48 INFO    - Waiting for application startup.
+[2025-07-08 11:15:24] uvicorn.error:62 INFO    - Application startup complete.
+[2025-07-08 11:15:25] root:25 INFO    - GET http://127.0.0.1:8000/docs - 200 - 0.28ms
+[2025-07-08 11:15:26] root:25 INFO    - GET http://127.0.0.1:8000/openapi.json - 200 - 12.83ms
+[2025-07-08 11:16:30] root:25 INFO    - GET http://127.0.0.1:8000/ping - 200 - 0.25ms
+[2025-07-08 11:16:43] root:25 INFO    - GET http://127.0.0.1:8000/ping - 200 - 0.19ms
+[2025-07-08 11:17:01] app.services.user_service:17 ERROR   - Пользователь не найден: aspirin
+[2025-07-08 11:17:01] root:25 INFO    - GET http://127.0.0.1:8000/api/v1/users/aspirin - 404 - 58.88ms
+[2025-07-08 11:17:36] uvicorn.error:55 WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+[2025-07-08 11:17:36] uvicorn.error:263 INFO    - Shutting down
+[2025-07-08 11:17:36] uvicorn.error:67 INFO    - Waiting for application shutdown.
+[2025-07-08 11:17:36] uvicorn.error:76 INFO    - Application shutdown complete.
+[2025-07-08 11:17:36] uvicorn.error:93 INFO    - Finished server process [12056]
+[2025-07-08 11:17:37] uvicorn.error:83 INFO    - Started server process [32280]
+[2025-07-08 11:17:37] uvicorn.error:48 INFO    - Waiting for application startup.
+[2025-07-08 11:17:37] uvicorn.error:62 INFO    - Application startup complete.
+[2025-07-08 11:17:37] uvicorn.error:55 WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+[2025-07-08 11:17:37] uvicorn.error:263 INFO    - Shutting down
+[2025-07-08 11:17:37] uvicorn.error:67 INFO    - Waiting for application shutdown.
+[2025-07-08 11:17:37] uvicorn.error:76 INFO    - Application shutdown complete.
+[2025-07-08 11:17:37] uvicorn.error:93 INFO    - Finished server process [32280]
+[2025-07-08 11:17:38] uvicorn.error:83 INFO    - Started server process [23740]
+[2025-07-08 11:17:38] uvicorn.error:48 INFO    - Waiting for application startup.
+[2025-07-08 11:17:38] uvicorn.error:62 INFO    - Application startup complete.
+[2025-07-08 11:17:39] root:25 INFO    - GET http://127.0.0.1:8000/docs - 200 - 0.57ms
+[2025-07-08 11:17:39] root:25 INFO    - GET http://127.0.0.1:8000/openapi.json - 200 - 9.41ms
+[2025-07-08 11:17:41] root:25 INFO    - GET http://127.0.0.1:8000/ping - 200 - 0.22ms
+[2025-07-08 11:17:43] root:25 INFO    - GET http://127.0.0.1:8000/ping - 200 - 0.22ms
+[2025-07-08 11:17:53] uvicorn.error:55 WARNING - WatchFiles detected changes in 'main.py'. Reloading...
+[2025-07-08 11:17:53] uvicorn.error:263 INFO    - Shutting down
+[2025-07-08 11:17:53] uvicorn.error:67 INFO    - Waiting for application shutdown.
+[2025-07-08 11:17:53] uvicorn.error:76 INFO    - Application shutdown complete.
+[2025-07-08 11:17:53] uvicorn.error:93 INFO    - Finished server process [23740]
+[2025-07-08 11:17:55] uvicorn.error:83 INFO    - Started server process [20120]
+[2025-07-08 11:17:55] uvicorn.error:48 INFO    - Waiting for application startup.
+[2025-07-08 11:17:55] uvicorn.error:62 INFO    - Application startup complete.
+[2025-07-08 11:18:15] uvicorn.error:263 INFO    - Shutting down
+[2025-07-08 11:18:16] uvicorn.error:67 INFO    - Waiting for application shutdown.
+[2025-07-08 11:18:16] uvicorn.error:76 INFO    - Application shutdown complete.
+[2025-07-08 11:18:16] uvicorn.error:93 INFO    - Finished server process [20120]
+[2025-07-08 11:18:16] uvicorn.error:116 INFO    - Stopping reloader process [32732]

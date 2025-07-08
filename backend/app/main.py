@@ -15,7 +15,10 @@ configure_logging()
 
 
 
-app = FastAPI()
+app = FastAPI(
+    title='Reservio',
+    description='web-app for booking hotel'
+)
 
 app.add_middleware(LogMiddleware)
 

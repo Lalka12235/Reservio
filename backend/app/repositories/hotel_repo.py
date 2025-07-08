@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy import select,delete, update
 from app.config.session import Session
-from app.models.temp_models import HotelModel
+from app.models.hotel_model import HotelModel
 from app.schemas.hotel_schema import HotelSchema
 
 logger = logging.getLogger(__name__)

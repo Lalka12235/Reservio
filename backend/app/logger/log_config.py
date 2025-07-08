@@ -1,13 +1,16 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import os
+from pathlib import Path
 
-def configure_logging(level=logging.INFO, log_file='app/logger/logs/app.log'):
+BASE_DIR = Path(__file__).resolve().parent
+
+def configure_logging(level=logging.INFO, log_file=(BASE_DIR / 'logs/app.log')):
     # Убедимся, что директория существует
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
     watchfiles_logger = logging.getLogger('watchfiles.main')
-    watchfiles_logger.setLevel(logging.WARNING)  # или logging.ERROR
+    watchfiles_logger.setLevel(logging.WARNING)
 
     formatter = logging.Formatter(
         fmt='[%(asctime)s] %(name)s:%(lineno)d %(levelname)-7s - %(message)s',
