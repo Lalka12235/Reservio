@@ -1,34 +1,30 @@
 from sqlalchemy import select,delete,insert
 
 from app.models.user_model import UserModel
-from app.config.session import Session
+from sqlalchemy.orm import Session
 from app.utils.hash import make_hash_pass
 from app.schemas.user_schema import UserRegisterSchema, UserLoginSchema
 
 class UserRepository:
 
     @staticmethod
-    def get_user(username: str):
-         with Session() as session:
-            stmt = select(UserModel).where(UserModel.username == username)
-            user =  session.execute(stmt).scalar_one_or_none()
-            return user
+    def get_user(db: Session,username: str):
+         stmt = select(UserModel).where(UserModel.username == username)
+         user =  db.execute(stmt).scalar_one_or_none()
+         return user
         
     @staticmethod
-    def register_user(user: UserRegisterSchema):
-         with Session() as session:
+    def register_user(db: Session,user: UserRegisterSchema):
+         hash_pass = make_hash_pass(user.password)
 
-            hash_pass = make_hash_pass(user.password)
-
-            stmt = insert(UserModel).values(email=user.email,username=user.username,hashed_password=hash_pass)
-            session.execute(stmt)
-            session.commit()
+         stmt = insert(UserModel).values(email=user.email,username=user.username,hashed_password=hash_pass)
+         db.execute(stmt)
+         db.commit()
         
     @staticmethod
-    def delete_user(user: UserLoginSchema):
-         with Session() as session:
-            hash_pass = make_hash_pass(user.password)
+    def delete_user(db: Session,user: UserLoginSchema):
+         hash_pass = make_hash_pass(user.password)
 
-            stmt = delete(UserModel).where(UserModel.username == user.username,UserModel.hashed_password == hash_pass).returning(UserModel.id)
-            session.execute(stmt)
-            session.commit()
+         stmt = delete(UserModel).where(UserModel.username == user.username,UserModel.hashed_password == hash_pass).returning(UserModel.id)
+         db.execute(stmt)
+         db.commit()
