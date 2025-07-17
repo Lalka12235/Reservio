@@ -7,6 +7,8 @@ from app.services.room_service import RoomService
 from app.services.hotel_service import HotelService
 from app.schemas.booking_schema import BookingSchema
 
+from sqlalchemy.orm import Session
+
 
 class BookingService:
 
@@ -25,8 +27,9 @@ class BookingService:
             )
 
     @staticmethod
-    def _check_room_availability(room_id: int, booking: BookingSchema):
+    def _check_room_availability(db: Session,room_id: int, booking: BookingSchema):
         conflicting_bookings = BookingRepository.get_conflicting_bookings(
+            db,
             room_id=room_id,
             start_date=booking.start_date,
             end_date=booking.end_date
@@ -39,9 +42,9 @@ class BookingService:
             )
 
     @staticmethod
-    def get_booking_by_user(username: str):
-        user = UserServices.get_user(username)
-        result = BookingRepository.get_booking_by_user(user.id)
+    def get_booking_by_user(db: Session,username: str):
+        user = UserServices.get_user(db,username)
+        result = BookingRepository.get_booking_by_user(db,user.id)
 
         if not result:
             raise HTTPException(
@@ -52,9 +55,9 @@ class BookingService:
         return {'message': 'success', 'result': result}
 
     @staticmethod
-    def get_all_booking_by_user(username: str, skip: int = 0, limit: int = 10):
-        user = UserServices.get_user(username)
-        result = BookingRepository.get_all_booking_by_user(user.id, skip, limit)
+    def get_all_booking_by_user(db: Session,username: str, skip: int = 0, limit: int = 10):
+        user = UserServices.get_user(db,username)
+        result = BookingRepository.get_all_booking_by_user(db,user.id, skip, limit)
 
         if not result:
             raise HTTPException(
@@ -68,21 +71,21 @@ class BookingService:
             'pagination': {
                 'skip': skip,
                 'limit': limit,
-                'total': BookingRepository.get_count_bookings_by_user(user.id)
+                'total': BookingRepository.get_count_bookings_by_user(db,user.id)
             }
         }
 
     @staticmethod
-    def create_booking(booking: BookingSchema, title_hotel: str, title_room: str, username: str):
-        user = UserServices.get_user(username)
-        hotel = HotelService.get_hotel_by_title(title_hotel)
-        room = RoomService.get_room_by_title(title_hotel, title_room)
+    def create_booking(db: Session,booking: BookingSchema, title_hotel: str, title_room: str, username: str):
+        user = UserServices.get_user(db,username)
+        hotel = HotelService.get_hotel_by_title(db,title_hotel)
+        room = RoomService.get_room_by_title(db,title_hotel, title_room)
 
         BookingService._check_booking_dates(booking.start_date, booking.end_date)
-        BookingService._check_room_availability(room.id, booking.start_date, booking.end_date)
+        BookingService._check_room_availability(db,room.id, booking.start_date, booking.end_date)
 
         try:
-            result = BookingRepository.create_booking(
+            result = BookingRepository.create_booking(db,
                 booking=booking,
                 hotel_id=hotel.id,
                 room_id=room.id,
@@ -106,10 +109,10 @@ class BookingService:
             )
 
     @staticmethod
-    def delete_booking(username: str):
-        user = UserServices.get_user(username)
+    def delete_booking(db: Session,username: str):
+        user = UserServices.get_user(db,username)
         
-        booking = BookingRepository.get_booking_by_user(
+        booking = BookingRepository.get_booking_by_user(db,
             user_id=user.id
         )
         
@@ -126,7 +129,7 @@ class BookingService:
             )
         
         try:
-            BookingRepository.delete_booking(booking.id)
+            BookingRepository.delete_booking(db,booking.id)
             return {'message': 'Бронирование успешно отменено'}
         except Exception as e:
             raise HTTPException(
